@@ -12,7 +12,7 @@ stages:
           - task: NodeTool@0
             inputs:
               versionSource: 'spec'
-              versionSpec: '18.0.0'
+              versionSpec: '17.5.0'
 
 
           - script: |
