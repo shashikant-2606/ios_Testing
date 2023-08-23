@@ -27,8 +27,9 @@ stages:
               npm install -g appium
               appium -v
               appium driver install xcuitest
-              appium plugin install --source npm appium-device-farm
-              appium server -ka 800 --use-plugins=device-farm
+              appium plugin install - source=npm appium-device-farm 
+              appium plugin install - source=npm appium-dashboard
+              appium server -ka 800 - use-plugins=device-farm,appium-dashboard -pa /wd/hub - plugin-device-farm-platform=both
               
               appium
               
