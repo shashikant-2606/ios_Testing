@@ -28,8 +28,8 @@ stages:
               appium -v
               appium driver install xcuitest
               appium plugin install --source npm appium-device-farm
-              appium --use-plugins device-farm
               appium
+              appium --use-plugins device-farm
               
   
           - task: Maven@3
