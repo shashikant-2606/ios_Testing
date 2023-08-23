@@ -19,7 +19,7 @@ public class NewTest {
       //capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, "14.5"); // Replace with your iOS version
       //capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "iPhone 12 Pro"); // Replace with your device name
       capabilities.setCapability(MobileCapabilityType.BROWSER_NAME, "Safari");
-      capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, "XcuiTest");
+      capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, "XCUITest");
       
       URL url=new URL("http://127.0.0.1:4723/");
 
