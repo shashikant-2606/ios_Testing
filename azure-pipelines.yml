@@ -22,11 +22,13 @@ stages:
 
 
           - script: |
+              xcode-select --install
+              ./Scripts/bootstrap.sh -d
               npm install -g appium
               appium driver install xcuitest
               appium plugin install --source npm appium-device-farm
               appium --address 0.0.0.0 --port 4723 --log-level debug --use-plugins appium-xcuitest-driver &
-              appium driver list --installed
+              
               
   
           - task: Maven@3
