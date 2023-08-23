@@ -23,8 +23,8 @@ stages:
 
           - script: |
               npm install -g appium
-              appium plugin install --source=npm appium-xcuitest-driver
-              appium --address 0.0.0.0 --port 4723 --log-level debug --use-plugins xcuitest &
+              npm install -g appium-xcuitest-driver
+              appium --address 0.0.0.0 --port 4723 --log-level debug --use-plugins appium-xcuitest-driver &
               
               
   
