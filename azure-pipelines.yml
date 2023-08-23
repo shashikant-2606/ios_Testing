@@ -14,11 +14,6 @@ stages:
               versionSource: 'spec'
               versionSpec: '17.5.0'
 
-          - task: JavaToolInstaller@0
-            inputs:
-              versionSpec: '11'
-              jdkArchitectureOption: 'x64'
-              jdkSourceOption: 'PreInstalled'
 
           - script: |
               node -v
