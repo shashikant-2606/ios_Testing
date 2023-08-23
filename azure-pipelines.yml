@@ -26,8 +26,9 @@ stages:
               java -version
               npm install -g appium@next
               appium -v
+              appium plugin install --source npm appium-device-farm
               appium driver install xcuitest
-              appium -p 4273
+              appium 
               
               
   
