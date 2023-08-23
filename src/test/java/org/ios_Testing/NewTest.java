@@ -19,7 +19,7 @@ public class NewTest {
       //capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "iPhone 12 Pro"); // Replace with your device name
       capabilities.setCapability(MobileCapabilityType.BROWSER_NAME, "Safari");
       
-      URL url=new URL("http://127.0.0.1:4723/wd/hub");
+      URL url=new URL("http://127.0.0.1:4723/");
 
       IOSDriver driver = new IOSDriver(url, capabilities);
 
