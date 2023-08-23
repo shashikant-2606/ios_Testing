@@ -28,8 +28,11 @@ stages:
               appium -v
               appium driver install xcuitest
               appium plugin install --source npm appium-device-farm
-              appium
-              appium --use-plugins device-farm
+              
+              export SIMULATOR_NAME="my-sim"
+              export SIMULATOR_UDID=$(xcrun simctl create "$SIMULATOR_NAME" com.apple.CoreSimulator.SimDeviceType.iPhone-12 com.apple.CoreSimulator.SimRuntime.iOS-14-3)
+              export SIMCTL_CHILD_BOOTED_DEVICE="$SIMULATOR_UDID"
+            
               
   
           - task: Maven@3
