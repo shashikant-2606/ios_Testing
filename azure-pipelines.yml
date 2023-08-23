@@ -28,7 +28,7 @@ stages:
               appium -v
               appium driver install xcuitest
               appium plugin install --source npm appium-device-farm
-              
+              appium --use-plugins=appium-device-farm
               appium
               
               
