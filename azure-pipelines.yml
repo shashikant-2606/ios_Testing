@@ -24,9 +24,10 @@ stages:
           - script: |
               node -v
               java -version
-              sudo npm install -g appium
+              npm install -g appium
               appium -v
               appium driver install xcuitest
+              appium plugin install --source npm appium-device-farm
               
               appium
               
