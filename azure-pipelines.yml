@@ -24,7 +24,7 @@ stages:
           - script: |
               node -v
               java -version
-              npm install -g appium@next
+              sudo npm install -g appium
               appium -v
               appium driver install xcuitest
               
