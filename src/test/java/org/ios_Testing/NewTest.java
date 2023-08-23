@@ -15,11 +15,11 @@ public class NewTest {
   {
 	  DesiredCapabilities capabilities = new DesiredCapabilities();
       capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "iOS");
-      capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, "14.5"); // Replace with your iOS version
-      capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "iPhone 12 Pro"); // Replace with your device name
+      //capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, "14.5"); // Replace with your iOS version
+      //capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "iPhone 12 Pro"); // Replace with your device name
       capabilities.setCapability(MobileCapabilityType.BROWSER_NAME, "Safari");
       
-      URL url=new URL("http://127.0.0.1:4723/wd/hub/");
+      URL url=new URL("http://127.0.0.1:4723/wd/hub");
 
       IOSDriver driver = new IOSDriver(url, capabilities);
 
