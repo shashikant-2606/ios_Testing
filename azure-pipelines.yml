@@ -21,7 +21,7 @@ stages:
               npm install -g appium@next
               appium -v
               appium driver install xcuitest
-              
+              appium plugin install --source npm appium-device-farm
               appium
   
           - task: Maven@3
