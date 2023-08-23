@@ -14,6 +14,12 @@ stages:
               versionSource: 'spec'
               versionSpec: '18.17.1'
 
+          - task: JavaToolInstaller@0
+            inputs:
+              versionSpec: '11'
+              jdkArchitectureOption: 'x64'
+              jdkSourceOption: 'PreInstalled'
+
 
           - script: |
               node -v
@@ -22,7 +28,7 @@ stages:
               appium -v
               appium driver install xcuitest
               appium plugin install --source npm appium-device-farm
-              appium
+              
   
           - task: Maven@3
             inputs:
