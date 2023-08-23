@@ -22,13 +22,9 @@ stages:
 
 
           - script: |
-              node -v
-              java -version
-              npm install -g appium@next
-              appium -v
-              appium plugin install --source npm appium-device-farm
-              appium driver install xcuitest
-              appium 
+              npm install -g appium
+              appium plugin install --source=npm appium-xcuitest-driver
+              appium --address 0.0.0.0 --port 4723 --log-level debug --use-plugins xcuitest &
               
               
   
