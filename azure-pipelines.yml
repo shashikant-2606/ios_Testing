@@ -23,8 +23,8 @@ stages:
 
           - script: |
               xcrun simctl list
-              xcrun create iphone-12 com.apple.CoreSimulator.SimDeviceType.iPhone-12 com.apple.CoreSimulator.SimRuntime.iOS-16-2
-              xcrun simctl boot 8ED83A62-0368-4170-ACF7-91D79AF9EFDA
+              xcrun simctl create iPhone1 com.apple.CoreSimulator.SimDeviceType.iPhone-11  
+              xcrun simctl boot iphone1
               npm install -g appium
               appium driver install xcuitest
               appium plugin install --source npm appium-device-farm
