@@ -32,5 +32,36 @@ stages:
               appium plugin install --source npm appium-device-farm
               appium --address 0.0.0.0 --port 4723 --log-level debug --use-plugins appium-xcuitest-driver &
               /usr/bin/xcodebuild -version
+
+              - task: Maven@3
+            inputs:
+              mavenPomFile: 'pom.xml'
+              publishJUnitResults: true
+              testResultsFiles: '**/surefire-reports/TEST-*.xml'
+              javaHomeOption: 'JDKVersion'
+              jdkVersionOption: '1.11'
+              mavenVersionOption: 'Default'
+              mavenAuthenticateFeed: true
+              effectivePomSkip: true
+              sonarQubeRunAnalysis: true
+              sqMavenPluginVersionChoice: 'latest'
+              
+          - task: CopyFiles@2
+            displayName: 'Copy failure screenshots and test logs'
+            inputs:
+              SourceFolder: '$(Build.SourcesDirectory)/target'
+              Contents: |
+                     surefire-reports/failure_screenshots/*.png
+                     log/*.log
+              TargetFolder: '$(Build.ArtifactStagingDirectory)'
+            condition: succeededOrFailed()
+            
+          - task: PublishBuildArtifacts@1
+            displayName: 'Publish copied artifacts'
+            inputs:
+                PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+                ArtifactName: 'drop'
+                publishLocation: 'Container'
+            condition: succeededOrFailed()
               
   
