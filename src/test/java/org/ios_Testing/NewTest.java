@@ -16,7 +16,7 @@ public class NewTest {
   {
 	  DesiredCapabilities capabilities = new DesiredCapabilities();
       capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "iOS");
-      capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, "iOS 16.2"); // Replace with your iOS version
+      capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, "16.2"); // Replace with your iOS version
       capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "iPhone 12"); // Replace with your device name
       capabilities.setCapability(MobileCapabilityType.BROWSER_NAME, "Safari");
       capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, "XCUITest");
