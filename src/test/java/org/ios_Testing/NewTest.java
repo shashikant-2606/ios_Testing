@@ -23,7 +23,7 @@ public class NewTest {
       capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, "XCUITest");
       //capabilities.setCapability("webDriverAgentUrl", WDAServer.SERVER_URL);
       
-      URL url=new URL("http://127.0.0.1:4723/wd/hub/");
+      URL url=new URL("http://127.0.0.1:4723/");
 
       IOSDriver driver = new IOSDriver(url, capabilities);
 
