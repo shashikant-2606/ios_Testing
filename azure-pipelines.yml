@@ -20,6 +20,15 @@ stages:
               jdkArchitectureOption: 'x64'
               jdkSourceOption: 'PreInstalled'
 
+          - task: Xcode@5
+            inputs:
+             actions: 'build'
+             scheme: ''
+             sdk: 'iphoneos'
+             configuration: 'Release'
+             xcWorkspacePath: '**/*.xcodeproj/project.xcworkspace'
+             xcodeVersion: 'default'
+
 
           - script: |
               
@@ -28,7 +37,7 @@ stages:
               appium driver install xcuitest
               appium plugin install --source npm appium-device-farm
               appium --address 0.0.0.0 --port 4723 --log-level debug --use-plugins appium-xcuitest-driver &
-              /Applications/Appium.app/Contents/Resources/app/node_modules/appium/node_modules/appium-webdriveragent/WebDriverAgent.xcodeproj
+              
 
           - task: Maven@3
             inputs:
