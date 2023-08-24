@@ -33,7 +33,7 @@ stages:
               appium --address 0.0.0.0 --port 4723 --log-level debug --use-plugins appium-xcuitest-driver &
               /usr/bin/xcodebuild -version
 
-              - task: Maven@3
+          - task: Maven@3
             inputs:
               mavenPomFile: 'pom.xml'
               publishJUnitResults: true
