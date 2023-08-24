@@ -23,7 +23,7 @@ stages:
 
           - script: |
               xcrun simctl list
-              xcrun simctl create iPhone1 com.apple.CoreSimulator.SimDeviceType.iPhone-11
+              xcrun simctl create iPhone1 com.apple.CoreSimulator.SimDeviceType.iPhone-11 com.apple.CoreSimulator.SimRuntime.iOS-16-2
               xcrun simctl boot iPhone1
               npm install -g appium
               appium --version
