@@ -23,15 +23,16 @@ stages:
 
           - script: |
               xcrun simctl list
-              xcrun simctl create iPhone1 com.apple.CoreSimulator.SimDeviceType.iPhone-11 com.apple.CoreSimulator.SimRuntime.iOS-16-2 
-              xcrun simctl boot iphone1
+              xcrun simctl create iPhone1 com.apple.CoreSimulator.SimDeviceType.iPhone-11 com.apple.CoreSimulator.SimRuntime.iOS-16-2
+              xcrun simctl boot iPhone1
+              open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app/
               npm install -g appium
+              appium --version
               appium driver install xcuitest
               appium plugin install --source npm appium-device-farm
               appium --address 0.0.0.0 --port 4723 --log-level debug --use-plugins appium-xcuitest-driver &
-              
-              
-  
+              /usr/bin/xcodebuild -version
+
           - task: Maven@3
             inputs:
               mavenPomFile: 'pom.xml'
@@ -62,3 +63,5 @@ stages:
                 ArtifactName: 'drop'
                 publishLocation: 'Container'
             condition: succeededOrFailed()
+              
+  
