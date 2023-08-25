@@ -62,7 +62,7 @@ stages:
               appium plugin install --source npm appium-device-farm
               appium --address 0.0.0.0 --port 4723 --log-level debug --use-plugins appium-xcuitest-driver &
               echo "Appium server started"
-              condition: eq(variables['isRemote'], 'true')
+              
 
          - task: Maven@3
            inputs:
