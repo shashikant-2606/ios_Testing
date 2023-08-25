@@ -2,7 +2,7 @@ trigger:
   - main
 
 pool:
-  vmImage: 'macOS-11'
+  vmImage: 'macOS-latest'
 
 stages:
   - stage: emulator
@@ -47,6 +47,7 @@ stages:
            inputs:
             script: |
               appium plugin install --source npm appium-device-farm
+              appium --use-plugins device-farm
               appium --address 0.0.0.0 --port 4723 --log-level debug --use-plugins appium-xcuitest-driver &
               echo "Appium server started"
               
@@ -81,6 +82,6 @@ stages:
                 PathtoPublish: '$(Build.ArtifactStagingDirectory)'
                 ArtifactName: 'drop'
                 publishLocation: 'Container'
-                condition: succeededOrFailed()
+        condition: succeededOrFailed()
               
   
