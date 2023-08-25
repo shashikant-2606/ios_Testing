@@ -81,6 +81,6 @@ stages:
                 PathtoPublish: '$(Build.ArtifactStagingDirectory)'
                 ArtifactName: 'drop'
                 publishLocation: 'Container'
-                condition: succeededOrFailed()
+        condition: succeededOrFailed()
               
   
