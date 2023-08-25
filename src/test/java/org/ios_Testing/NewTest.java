@@ -22,8 +22,15 @@ public class NewTest {
       capabilities.setCapability(MobileCapabilityType.BROWSER_NAME, "Safari");
       capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, "XCUITest");
       //capabilities.setCapability("webDriverAgentUrl", WDAServer.SERVER_URL);
+      capabilities.setCapability("autoAcceptAlerts", true);
+      capabilities.setCapability("useNewWDA", false);
+      capabilities.setCapability("usePrebuiltWDA", true);
+      capabilities.setCapability("wdaStartupRetries", "4");
+      capabilities.setCapability("wdaStartupRetryInterval", "20000");
+      capabilities.setCapability("wdaLaunchTimeout", 300000);
+      capabilities.setCapability("newCommandTimeout", 300);
       
-      URL url=new URL("http://127.0.0.1:4723");
+      URL url=new URL("http://127.0.0.1:4723/");
 
       IOSDriver driver = new IOSDriver(url, capabilities);
 
