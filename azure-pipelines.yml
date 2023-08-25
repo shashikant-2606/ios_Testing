@@ -59,7 +59,7 @@ stages:
            displayName: 'Start Appium server'
            inputs:
             script: |
-              appium --allow-insecure chromedriver_autodownload --base-path /wd/hub &
+              appium --address 0.0.0.0 --port 4723 --log-level debug --use-plugins appium-xcuitest-driver &
               echo "Appium server started"
               condition: eq(variables['isRemote'], 'true')
 
