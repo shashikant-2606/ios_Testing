@@ -21,20 +21,50 @@ stages:
               jdkSourceOption: 'PreInstalled'
 
 
-          - script: |
-              
-              npm install -g appium
-              appium --version
-              appium driver install xcuitest
-              appium plugin install --source npm appium-device-farm
-              appium --address 0.0.0.0 --port 4723 --log-level debug --use-plugins appium-xcuitest-driver &
-              
-              /usr/local/lib/node_modules/appium/node_modules/appium-webdriveragent
-              mkdir -p Resources/WebDriverAgent.bundle
-              ./Scripts/bootstrap.sh -d
+      - job: tests
+        displayName: Run tests
+        strategy:
+          maxParallel: 2
+          matrix:
+           REMOTE_SERVER:
+            isRemote: true
+        steps:
+         - task: CmdLine@2
+           displayName: 'Configure Appium and Android SDK'
+           inputs:
+            script: |
+             echo "Installing Appium"
+             npm install -g appium@next
+             ln -fs /usr/local/lib/node_modules/appium/build/lib/main.js /usr/local/bin/appium
+             chmod +x /usr/local/bin/appium
+             export PATH=$PATH:/usr/local/bin/appium
+             appium --version
+             echo "Appium installed"
 
-          - task: Maven@3
-            inputs:
+             echo "Installing UIA2 driver"
+             appium driver install xcuitest
+             appium driver list
+             echo "UIA2 driver installed"
+
+             echo "Installing and Running Appium doctor"
+             npm install -g request@2.34.0
+             npm install @appium/doctor -g
+             ln -fs /usr/local/lib/node_modules/appium-doctor/appium-doctor.js /usr/local/bin/appium-doctor
+             chmod +x /usr/local/bin/appium-doctor
+             export PATH=$PATH:/usr/local/bin/appium-doctor
+             appium-doctor
+             echo "Appium doctor installed and executed"
+
+         - task: CmdLine@2
+           displayName: 'Start Appium server'
+           inputs:
+            script: |
+              appium --allow-insecure chromedriver_autodownload --base-path /wd/hub &
+              echo "Appium server started"
+              condition: eq(variables['isRemote'], 'true')
+
+         - task: Maven@3
+           inputs:
               mavenPomFile: 'pom.xml'
               publishJUnitResults: true
               testResultsFiles: '**/surefire-reports/TEST-*.xml'
@@ -46,22 +76,22 @@ stages:
               sonarQubeRunAnalysis: true
               sqMavenPluginVersionChoice: 'latest'
               
-          - task: CopyFiles@2
-            displayName: 'Copy failure screenshots and test logs'
-            inputs:
+         - task: CopyFiles@2
+           displayName: 'Copy failure screenshots and test logs'
+           inputs:
               SourceFolder: '$(Build.SourcesDirectory)/target'
               Contents: |
                      surefire-reports/failure_screenshots/*.png
                      log/*.log
               TargetFolder: '$(Build.ArtifactStagingDirectory)'
-            condition: succeededOrFailed()
+           condition: succeededOrFailed()
             
-          - task: PublishBuildArtifacts@1
-            displayName: 'Publish copied artifacts'
-            inputs:
+         - task: PublishBuildArtifacts@1
+           displayName: 'Publish copied artifacts'
+           inputs:
                 PathtoPublish: '$(Build.ArtifactStagingDirectory)'
                 ArtifactName: 'drop'
                 publishLocation: 'Container'
-            condition: succeededOrFailed()
+                condition: succeededOrFailed()
               
   
