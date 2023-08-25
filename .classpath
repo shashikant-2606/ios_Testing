@@ -29,14 +29,5 @@
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/My_Work/.m2/repository/io/appium/java-client/8.5.1/java-client-8.5.1.jar" sourcepath="C:/Users/My_Work/.m2/repository/io/appium/java-client/8.5.1/java-client-8.5.1-sources.jar">
-		<attributes>
-			<attribute name="maven.pomderived" value="true"/>
-			<attribute name="maven.groupId" value="io.appium"/>
-			<attribute name="maven.artifactId" value="java-client"/>
-			<attribute name="maven.version" value="8.5.1"/>
-			<attribute name="maven.scope" value="compile"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
