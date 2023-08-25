@@ -64,7 +64,8 @@ stages:
               echo "Appium server started"
               
 
-         - task: Maven@3
+         
+         - task: Maven@4
            inputs:
               mavenPomFile: 'pom.xml'
               publishJUnitResults: true
@@ -72,10 +73,10 @@ stages:
               javaHomeOption: 'JDKVersion'
               jdkVersionOption: '1.11'
               mavenVersionOption: 'Default'
-              mavenAuthenticateFeed: true
-              effectivePomSkip: true
-              sonarQubeRunAnalysis: true
-              sqMavenPluginVersionChoice: 'latest'
+              mavenAuthenticateFeed: false
+              effectivePomSkip: false
+              sonarQubeRunAnalysis: false
+              
               
          - task: CopyFiles@2
            displayName: 'Copy failure screenshots and test logs'
