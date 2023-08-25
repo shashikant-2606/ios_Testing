@@ -2,66 +2,85 @@ trigger:
   - main
 
 pool:
-  vmImage: 'macOS-latest'
+  vmImage: 'macOS-11'
 
 stages:
   - stage: emulator
     jobs:
-      - job: test
+
+      - job: tests
+        displayName: Run tests
+        strategy:
+          maxParallel: 2
+          matrix:
+           REMOTE_SERVER:
+            isRemote: true
         steps:
-          - task: NodeTool@0
-            inputs:
-              versionSource: 'spec'
-              versionSpec: '18.17.1'
+         - task: CmdLine@2
+           displayName: 'Configure Appium and Android SDK'
+           inputs:
+            script: |
+             echo "Installing Appium"
+             npm install -g appium@next
+             ln -fs /usr/local/lib/node_modules/appium/build/lib/main.js /usr/local/bin/appium
+             chmod +x /usr/local/bin/appium
+             export PATH=$PATH:/usr/local/bin/appium
+             appium --version
+             echo "Appium installed"
 
-          - task: JavaToolInstaller@0
-            inputs:
-              versionSpec: '11'
-              jdkArchitectureOption: 'x64'
-              jdkSourceOption: 'PreInstalled'
+             echo "Installing UIA2 driver"
+             appium driver install xcuitest
+             appium driver list
+             echo "UIA2 driver installed"
 
+             echo "Installing and Running Appium doctor"
+             npm install -g request@2.34.0
+             npm install @appium/doctor -g
+             ln -fs /usr/local/lib/node_modules/appium-doctor/appium-doctor.js /usr/local/bin/appium-doctor
+             chmod +x /usr/local/bin/appium-doctor
+             export PATH=$PATH:/usr/local/bin/appium-doctor
+             appium-doctor
+             echo "Appium doctor installed and executed"
 
-          - script: |
-              xcrun simctl list
-              xcrun simctl create iPhone1 com.apple.CoreSimulator.SimDeviceType.iPhone-11 com.apple.CoreSimulator.SimRuntime.iOS-16-2
-              xcrun simctl boot iPhone1
-              open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app/
-              npm install -g appium
-              appium --version
-              appium driver install xcuitest
+         - task: CmdLine@2
+           displayName: 'Start Appium server'
+           inputs:
+            script: |
               appium plugin install --source npm appium-device-farm
               appium --address 0.0.0.0 --port 4723 --log-level debug --use-plugins appium-xcuitest-driver &
-              /usr/bin/xcodebuild -version
+              echo "Appium server started"
+              
 
-          - task: Maven@3
-            inputs:
+         
+         - task: Maven@4
+           inputs:
               mavenPomFile: 'pom.xml'
               publishJUnitResults: true
               testResultsFiles: '**/surefire-reports/TEST-*.xml'
               javaHomeOption: 'JDKVersion'
-              jdkVersionOption: '1.11'
+              jdkVersionOption: '1.17'
               mavenVersionOption: 'Default'
-              mavenAuthenticateFeed: true
-              effectivePomSkip: true
-              sonarQubeRunAnalysis: true
-              sqMavenPluginVersionChoice: 'latest'
+              mavenAuthenticateFeed: false
+              effectivePomSkip: false
+              sonarQubeRunAnalysis: false
               
-          - task: CopyFiles@2
-            displayName: 'Copy failure screenshots and test logs'
-            inputs:
+              
+         - task: CopyFiles@2
+           displayName: 'Copy failure screenshots and test logs'
+           inputs:
               SourceFolder: '$(Build.SourcesDirectory)/target'
               Contents: |
                      surefire-reports/failure_screenshots/*.png
                      log/*.log
               TargetFolder: '$(Build.ArtifactStagingDirectory)'
-            condition: succeededOrFailed()
+           condition: succeededOrFailed()
             
-          - task: PublishBuildArtifacts@1
-            displayName: 'Publish copied artifacts'
-            inputs:
+         - task: PublishBuildArtifacts@1
+           displayName: 'Publish copied artifacts'
+           inputs:
                 PathtoPublish: '$(Build.ArtifactStagingDirectory)'
                 ArtifactName: 'drop'
                 publishLocation: 'Container'
-            condition: succeededOrFailed()
+                condition: succeededOrFailed()
               
   
