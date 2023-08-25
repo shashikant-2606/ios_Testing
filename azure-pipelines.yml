@@ -29,7 +29,7 @@ stages:
              echo "Appium installed"
 
              echo "Installing UIA2 driver"
-             appium driver install uiautomator2
+             appium driver install xcuitest
              appium driver list
              echo "UIA2 driver installed"
 
