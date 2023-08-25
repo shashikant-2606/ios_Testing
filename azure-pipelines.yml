@@ -2,7 +2,7 @@ trigger:
   - main
 
 pool:
-  vmImage: 'macOS-latest'
+  vmImage: 'macOS-13'
 
 stages:
   - stage: emulator
