@@ -23,8 +23,8 @@ public class NewTest {
       capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, "XCUITest");
       //capabilities.setCapability("webDriverAgentUrl", WDAServer.SERVER_URL);
       capabilities.setCapability("autoAcceptAlerts", true);
-      capabilities.setCapability("useNewWDA", false);
-      capabilities.setCapability("usePrebuiltWDA", true);
+      capabilities.setCapability("useNewWDA", true);
+     // capabilities.setCapability("usePrebuiltWDA", true);
       capabilities.setCapability("wdaStartupRetries", "4");
       capabilities.setCapability("wdaStartupRetryInterval", "20000");
       capabilities.setCapability("wdaLaunchTimeout", 300000);
