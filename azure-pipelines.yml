@@ -20,21 +20,27 @@ stages:
            displayName: 'Configure Appium'
            inputs:
             script: |
+             echo "Installing Appium"
              npm install -g appium@next
              ln -fs /usr/local/lib/node_modules/appium/build/lib/main.js /usr/local/bin/appium
              chmod +x /usr/local/bin/appium
              export PATH=$PATH:/usr/local/bin/appium
              appium --version
-             
-             appium driver install xcuitest
+             echo "Appium installed"
+
+             echo "Installing UIA2 driver"
+             appium driver install uiautomator2
              appium driver list
-             
+             echo "UIA2 driver installed"
+
+             echo "Installing and Running Appium doctor"
              npm install -g request@2.34.0
              npm install @appium/doctor -g
              ln -fs /usr/local/lib/node_modules/appium-doctor/appium-doctor.js /usr/local/bin/appium-doctor
              chmod +x /usr/local/bin/appium-doctor
              export PATH=$PATH:/usr/local/bin/appium-doctor
              appium-doctor
+             echo "Appium doctor installed and executed"
              
 
          - task: CmdLine@2
