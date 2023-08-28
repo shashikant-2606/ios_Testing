@@ -2,7 +2,7 @@ trigger:
   - main
 
 pool:
-  vmImage: 'macOS-11'
+  vmImage: 'macOS-latest'
 
 stages:
   - stage: emulator
@@ -17,7 +17,7 @@ stages:
             isRemote: true
         steps:
          - task: CmdLine@2
-           displayName: 'Configure Appium and Android SDK'
+           displayName: 'Configure Appium'
            inputs:
             script: |
              echo "Installing Appium"
@@ -41,22 +41,15 @@ stages:
              export PATH=$PATH:/usr/local/bin/appium-doctor
              appium-doctor
              echo "Appium doctor installed and executed"
+             
 
          - task: CmdLine@2
            displayName: 'Start Appium server'
            inputs:
             script: |
               appium plugin install --source npm appium-device-farm
-              appium --use-plugins device-farm
               appium --address 0.0.0.0 --port 4723 --log-level debug --use-plugins appium-xcuitest-driver &
-              echo "Appium server started"
-          
-         - task: CmdLine@2
-           displayName: 'Start Appium server'
-           inputs:
-             Script: |
-              xcrun simctl list
-         
+              
          - task: Maven@4
            inputs:
               mavenPomFile: 'pom.xml'
