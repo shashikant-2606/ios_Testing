@@ -1,6 +1,9 @@
 package org.ios_Testing;
 
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import java.net.MalformedURLException;
@@ -11,8 +14,10 @@ import io.appium.java_client.remote.AutomationName;
 import io.appium.java_client.remote.MobileCapabilityType;
 import io.appium.java_client.remote.MobilePlatform;
 
-public class NewTest {
-  @Test
+public class NewTest 
+{
+	public IOSDriver driver;
+  @BeforeMethod
   public void f() throws MalformedURLException 
   {
 	  DesiredCapabilities capabilities = new DesiredCapabilities();
@@ -32,7 +37,7 @@ public class NewTest {
       
       URL url=new URL("http://127.0.0.1:4723/");
 
-      IOSDriver driver = new IOSDriver(url, capabilities);
+      driver = new IOSDriver(url, capabilities);
 
      driver.get("https://www.amazon.in");
      
@@ -40,6 +45,10 @@ public class NewTest {
      System.out.println(s1);
      //my test
 
-      driver.quit();
+  }
+  @AfterMethod
+  public void teardown()
+  {
+	  driver.quit();
   }
 }
