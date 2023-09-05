@@ -47,6 +47,8 @@ public class Timetrial extends NewTest
       driver.get("https://playground.mailslurp.com");
       String url=driver.getTitle();
       System.out.println(url);
+      
+      Thread.sleep(5000);
       driver.findElement(By.cssSelector("[data-test=sign-in-create-account-link]")).click();
       
       Thread.sleep(5000);
