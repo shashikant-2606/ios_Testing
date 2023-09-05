@@ -18,7 +18,7 @@ public class NewTest
 {
 	public IOSDriver driver;
   @BeforeMethod
-  public void f() throws MalformedURLException 
+  public void setup() throws MalformedURLException 
   {
 	  DesiredCapabilities capabilities = new DesiredCapabilities();
       capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, MobilePlatform.IOS);

@@ -54,6 +54,13 @@
     <version>7.8.0</version>
     <scope>test</scope>
 </dependency>
+
+<!-- https://mvnrepository.com/artifact/com.mailslurp/mailslurp-client-java -->
+<dependency>
+    <groupId>com.mailslurp</groupId>
+    <artifactId>mailslurp-client-java</artifactId>
+    <version>15.17.4</version>
+</dependency>
   </dependencies>
 
   <build>
