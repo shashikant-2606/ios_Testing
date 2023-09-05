@@ -43,8 +43,7 @@ public class Timetrial extends NewTest
 	  mailslurpClient.setHttpClient(httpClient);
       mailslurpClient.setApiKey("094f1948766abbac9d896db2425814cd28ef67f93c3c440e36b34923d866c9e2");
       mailslurpClient.setConnectTimeout(TIMEOUT_MILLIS.intValue());
-      mailslurpClient.setWriteTimeout(TIMEOUT_MILLIS.intValue());
-      mailslurpClient.setReadTimeout(TIMEOUT_MILLIS.intValue());
+      
       
       
       //Below line of code will be created a temprory Email address for signup process
