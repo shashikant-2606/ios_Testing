@@ -14,7 +14,6 @@ import com.mailslurp.apis.InboxControllerApi;
 import com.mailslurp.apis.WaitForControllerApi;
 import com.mailslurp.clients.ApiClient;
 import com.mailslurp.clients.ApiException;
-import com.mailslurp.clients.Configuration;
 import com.mailslurp.models.Email;
 import com.mailslurp.models.InboxDto;
 
@@ -40,10 +39,12 @@ public class Timetrial extends NewTest
               .readTimeout(5, TimeUnit.MINUTES)
               .build();
 	  //During the below line of cod ewe are trying to connect mailslurp website to get a temprory email for signup process.
-	  mailslurpClient =Configuration.getDefaultApiClient();
+	  mailslurpClient = com.mailslurp.clients.Configuration.getDefaultApiClient();
 	  mailslurpClient.setHttpClient(httpClient);
       mailslurpClient.setApiKey("094f1948766abbac9d896db2425814cd28ef67f93c3c440e36b34923d866c9e2");
       mailslurpClient.setConnectTimeout(TIMEOUT_MILLIS.intValue());
+      mailslurpClient.setWriteTimeout(TIMEOUT_MILLIS.intValue());
+      mailslurpClient.setReadTimeout(TIMEOUT_MILLIS.intValue());
       
       
       //Below line of code will be created a temprory Email address for signup process
