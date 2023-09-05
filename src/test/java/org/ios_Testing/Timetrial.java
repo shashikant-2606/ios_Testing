@@ -2,6 +2,7 @@ package org.ios_Testing;
 
 import static org.testng.Assert.assertTrue;
 
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -13,8 +14,11 @@ import com.mailslurp.apis.InboxControllerApi;
 import com.mailslurp.apis.WaitForControllerApi;
 import com.mailslurp.clients.ApiClient;
 import com.mailslurp.clients.ApiException;
+import com.mailslurp.clients.Configuration;
 import com.mailslurp.models.Email;
 import com.mailslurp.models.InboxDto;
+
+import okhttp3.OkHttpClient;
 
 public class Timetrial extends NewTest 
 {
@@ -30,8 +34,14 @@ public class Timetrial extends NewTest
   @Test
   public void f() throws InterruptedException, ApiException 
   {
+	  OkHttpClient httpClient = new OkHttpClient.Builder()
+              .connectTimeout(5, TimeUnit.MINUTES)
+              .writeTimeout(5, TimeUnit.MINUTES)
+              .readTimeout(5, TimeUnit.MINUTES)
+              .build();
 	  //During the below line of cod ewe are trying to connect mailslurp website to get a temprory email for signup process.
-	  mailslurpClient = com.mailslurp.clients.Configuration.getDefaultApiClient();
+	  mailslurpClient =Configuration.getDefaultApiClient();
+	  mailslurpClient.setHttpClient(httpClient);
       mailslurpClient.setApiKey("094f1948766abbac9d896db2425814cd28ef67f93c3c440e36b34923d866c9e2");
       mailslurpClient.setConnectTimeout(TIMEOUT_MILLIS.intValue());
       
