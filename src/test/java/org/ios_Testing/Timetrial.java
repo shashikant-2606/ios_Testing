@@ -34,10 +34,14 @@ public class Timetrial extends NewTest
   @Test
   public void f() throws InterruptedException, ApiException 
   {
+	  OkHttpClient httpClient = new OkHttpClient.Builder()
+              .connectTimeout(5, TimeUnit.MINUTES)
+              .writeTimeout(5, TimeUnit.MINUTES)
+              .readTimeout(5, TimeUnit.MINUTES)
+              .build();
 	  //During the below line of cod ewe are trying to connect mailslurp website to get a temprory email for signup process.
 	  mailslurpClient = Configuration.getDefaultApiClient();
 	 
-      mailslurpClient.setApiKey("0978c19929af998ac07caa7967c02544862dac4745ffe29a33f975f873275333");
       
       //Below line of code will be created a temprory Email address for signup process
       InboxControllerApi inboxControllerApi = new InboxControllerApi(mailslurpClient);
@@ -45,6 +49,9 @@ public class Timetrial extends NewTest
       mailslurpClient.setConnectTimeout(TIMEOUT_MILLIS.intValue());
       mailslurpClient.setWriteTimeout(TIMEOUT_MILLIS.intValue());
       mailslurpClient.setReadTimeout(TIMEOUT_MILLIS.intValue());
+      
+      mailslurpClient.setHttpClient(httpClient);
+      mailslurpClient.setApiKey("0978c19929af998ac07caa7967c02544862dac4745ffe29a33f975f873275333");
       
       InboxDto inbox = inboxControllerApi.createInboxWithDefaults();
       String emailAddress = inbox.getEmailAddress();
