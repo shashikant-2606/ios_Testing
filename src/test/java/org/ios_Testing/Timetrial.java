@@ -28,10 +28,8 @@ public class Timetrial extends NewTest
 	private static Email email;
 	private static String confirmationCode;
 	private static final boolean UNREAD_ONLY = true;
-	
 
-
-  @Test
+  @Test (timeOut=12000)
   public void f() throws InterruptedException, ApiException 
   {
 	  OkHttpClient httpClient = new OkHttpClient.Builder()
@@ -47,9 +45,9 @@ public class Timetrial extends NewTest
       
       //Below line of code will be created a temprory Email address for signup process
       
-      mailslurpClient.setConnectTimeout(TIMEOUT_MILLIS.intValue());
-      mailslurpClient.setWriteTimeout(TIMEOUT_MILLIS.intValue());
-      mailslurpClient.setReadTimeout(TIMEOUT_MILLIS.intValue());
+      mailslurpClient.setConnectTimeout(60000);
+      mailslurpClient.setWriteTimeout(60000);
+      mailslurpClient.setReadTimeout(60000);
       
       InboxControllerApi inboxControllerApi = new InboxControllerApi(mailslurpClient);
       inbox = inboxControllerApi.createInboxWithDefaults();
@@ -89,12 +87,11 @@ public class Timetrial extends NewTest
       p1.Contact_info();*/
       
       //by using the below line of code we can extract a verification code from the inbox of temprory mail account.
-     try 
-     {
+     
       WaitForControllerApi waitForControllerApi = new WaitForControllerApi(mailslurpClient);
       email = waitForControllerApi.waitForLatestEmail(inbox.getId(), TIMEOUT_MILLIS.longValue(), UNREAD_ONLY, null, null, null, null);
       
-      //assertTrue(email.getSubject().contains("Please confirm your email address"));
+      assertTrue(email.getSubject().contains("Please confirm your email address"));
       
       Pattern p = Pattern.compile(".*verification code is (\\d+).*");
       Matcher matcher = p.matcher(email.getBody());
@@ -104,14 +101,7 @@ public class Timetrial extends NewTest
       confirmationCode = matcher.group(1);
       
       System.out.println(confirmationCode);
-      }
       
-      catch(com.mailslurp.clients.ApiException e) {
-    	    // Handle the exception
-    	    System.err.println("MailSlurp API Error: " + e.getMessage());
-    	    e.printStackTrace();
-    	    // Add error handling logic
-    	}
 
       //assertTrue(confirmationCode.length() == 6);*/
 }
