@@ -84,8 +84,9 @@ public class Timetrial extends NewTest
       p1.Contact_info();*/
       
       //by using the below line of code we can extract a verification code from the inbox of temprory mail account.
-      try {
+     
       WaitForControllerApi waitForControllerApi = new WaitForControllerApi(mailslurpClient);
+      try {
       email = waitForControllerApi.waitForLatestEmail(inbox.getId(), TIMEOUT_MILLIS, UNREAD_ONLY, null, null, null, null);
       
       //assertTrue(email.getSubject().contains("Please confirm your email address"));
