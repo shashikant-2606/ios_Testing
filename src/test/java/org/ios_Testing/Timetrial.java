@@ -41,6 +41,7 @@ public class Timetrial extends NewTest
               .build();
 	  //During the below line of cod ewe are trying to connect mailslurp website to get a temprory email for signup process.
 	  mailslurpClient = com.mailslurp.clients.Configuration.getDefaultApiClient();
+	  mailslurpClient.setHttpClient(httpClient);
       mailslurpClient.setApiKey("0978c19929af998ac07caa7967c02544862dac4745ffe29a33f975f873275333");
       mailslurpClient.setConnectTimeout(TIMEOUT_MILLIS.intValue());
       
@@ -51,9 +52,10 @@ public class Timetrial extends NewTest
       mailslurpClient.setReadTimeout(TIMEOUT_MILLIS.intValue());
       
       InboxControllerApi inboxControllerApi = new InboxControllerApi(mailslurpClient);
-      InboxDto inbox = inboxControllerApi.createInboxWithDefaults();
+      inbox = inboxControllerApi.createInboxWithDefaults();
       String emailAddress = inbox.getEmailAddress();
       System.out.println(emailAddress);
+      System.out.println(inbox.getId());
       
       String password1="Testing@12345";
       Thread.sleep(5000);
