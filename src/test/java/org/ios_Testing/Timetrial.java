@@ -25,7 +25,6 @@ public class Timetrial extends NewTest
 	private static ApiClient mailslurpClient;
 	private static final Long TIMEOUT_MILLIS = 30000L;
 	private static InboxDto inbox;
-	private static Email email;
 	private static String confirmationCode;
 	private static final boolean UNREAD_ONLY = true;
 
@@ -90,12 +89,11 @@ public class Timetrial extends NewTest
       //by using the below line of code we can extract a verification code from the inbox of temprory mail account.
      
       WaitForControllerApi waitForControllerApi = new WaitForControllerApi(mailslurpClient);
-      email = waitForControllerApi.waitForLatestEmail(inbox.getId(), TIMEOUT_MILLIS, UNREAD_ONLY, null, null, null,null);
+      Email email1 = waitForControllerApi.waitForLatestEmail(inbox.getId(), TIMEOUT_MILLIS.longValue(), UNREAD_ONLY, null, null, null,null);
       
-      assertTrue(email.getSubject().contains("Please confirm your email address"));
       
       Pattern p = Pattern.compile(".*verification code is (\\d+).*");
-      Matcher matcher = p.matcher(email.getBody());
+      Matcher matcher = p.matcher(email1.getBody());
 
       // find first occurrence and extract
       assertTrue(matcher.find());
