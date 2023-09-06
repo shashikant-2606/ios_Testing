@@ -30,7 +30,7 @@ public class Timetrial extends NewTest
 	
 
 
-  @Test
+  @Test(timeOut = 120000)
   public void f() throws InterruptedException, ApiException 
   {
 	  OkHttpClient httpClient = new OkHttpClient.Builder()
@@ -82,9 +82,9 @@ public class Timetrial extends NewTest
       p1.Contact_info();*/
       
       //by using the below line of code we can extract a verification code from the inbox of temprory mail account.
-      Thread.sleep(20000);
+      
       WaitForControllerApi waitForControllerApi = new WaitForControllerApi(mailslurpClient);
-      email = waitForControllerApi.waitForLatestEmail(inbox.getId(), TIMEOUT_MILLIS, UNREAD_ONLY, null, null, url, null);
+      email = waitForControllerApi.waitForLatestEmail(inbox.getId(), TIMEOUT_MILLIS, UNREAD_ONLY, null, null, null, null);
       
       //assertTrue(email.getSubject().contains("Please confirm your email address"));
       

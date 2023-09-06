@@ -5,7 +5,7 @@ pool:
   vmImage: 'macOS-latest'
 
 stages:
-  - stage: emulator
+  - stage: iOS testing
     jobs:
 
       - job: tests
