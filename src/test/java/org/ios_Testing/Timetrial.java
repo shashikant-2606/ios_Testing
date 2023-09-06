@@ -39,6 +39,7 @@ public class Timetrial extends NewTest
               .build();
 	  //During the below line of cod ewe are trying to connect mailslurp website to get a temprory email for signup process.
 	  mailslurpClient = com.mailslurp.clients.Configuration.getDefaultApiClient();
+	  mailslurpClient.setBasePath("https://java.api.mailslurp.com");
 	  mailslurpClient.setHttpClient(httpClient);
       mailslurpClient.setApiKey("0978c19929af998ac07caa7967c02544862dac4745ffe29a33f975f873275333");
       mailslurpClient.setConnectTimeout(TIMEOUT_MILLIS.intValue());
@@ -89,7 +90,7 @@ public class Timetrial extends NewTest
       //by using the below line of code we can extract a verification code from the inbox of temprory mail account.
      
       WaitForControllerApi waitForControllerApi = new WaitForControllerApi(mailslurpClient);
-      email = waitForControllerApi.waitForLatestEmail(inbox.getId(), TIMEOUT_MILLIS.longValue(), UNREAD_ONLY, null, null, null, null);
+      email = waitForControllerApi.waitForLatestEmail(inbox.getId(), TIMEOUT_MILLIS, UNREAD_ONLY, null, null, null,null);
       
       assertTrue(email.getSubject().contains("Please confirm your email address"));
       
