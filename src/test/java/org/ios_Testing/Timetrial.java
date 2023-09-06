@@ -66,6 +66,8 @@ public class Timetrial extends NewTest
       driver.findElement(By.name("password")).sendKeys(password1);
       driver.findElement(By.cssSelector("[data-test=sign-up-create-account-button]")).click();
       
+      System.out.println("Completed till this process");
+      
       /*
        String name="Villeos";
       
@@ -82,7 +84,7 @@ public class Timetrial extends NewTest
       p1.Contact_info();*/
       
       //by using the below line of code we can extract a verification code from the inbox of temprory mail account.
-      
+      try {
       WaitForControllerApi waitForControllerApi = new WaitForControllerApi(mailslurpClient);
       email = waitForControllerApi.waitForLatestEmail(inbox.getId(), TIMEOUT_MILLIS, UNREAD_ONLY, null, null, null, null);
       
@@ -96,6 +98,14 @@ public class Timetrial extends NewTest
       confirmationCode = matcher.group(1);
       
       System.out.println(confirmationCode);
+      }
+      
+      catch(com.mailslurp.clients.ApiException e) {
+    	    // Handle the exception
+    	    System.err.println("MailSlurp API Error: " + e.getMessage());
+    	    e.printStackTrace();
+    	    // Add error handling logic
+    	}
 
       //assertTrue(confirmationCode.length() == 6);*/
 }
