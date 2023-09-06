@@ -40,19 +40,17 @@ public class Timetrial extends NewTest
               .readTimeout(5, TimeUnit.MINUTES)
               .build();
 	  //During the below line of cod ewe are trying to connect mailslurp website to get a temprory email for signup process.
-	  mailslurpClient = Configuration.getDefaultApiClient();
-	 
+	  mailslurpClient = com.mailslurp.clients.Configuration.getDefaultApiClient();
+      mailslurpClient.setApiKey("0978c19929af998ac07caa7967c02544862dac4745ffe29a33f975f873275333");
+      mailslurpClient.setConnectTimeout(TIMEOUT_MILLIS.intValue());
       
       //Below line of code will be created a temprory Email address for signup process
-      InboxControllerApi inboxControllerApi = new InboxControllerApi(mailslurpClient);
       
       mailslurpClient.setConnectTimeout(TIMEOUT_MILLIS.intValue());
       mailslurpClient.setWriteTimeout(TIMEOUT_MILLIS.intValue());
       mailslurpClient.setReadTimeout(TIMEOUT_MILLIS.intValue());
       
-      mailslurpClient.setHttpClient(httpClient);
-      mailslurpClient.setApiKey("0978c19929af998ac07caa7967c02544862dac4745ffe29a33f975f873275333");
-      
+      InboxControllerApi inboxControllerApi = new InboxControllerApi(mailslurpClient);
       InboxDto inbox = inboxControllerApi.createInboxWithDefaults();
       String emailAddress = inbox.getEmailAddress();
       System.out.println(emailAddress);
@@ -92,7 +90,7 @@ public class Timetrial extends NewTest
      try 
      {
       WaitForControllerApi waitForControllerApi = new WaitForControllerApi(mailslurpClient);
-      Email email = waitForControllerApi.waitForLatestEmail(inbox.getId(), TIMEOUT_MILLIS.longValue(), UNREAD_ONLY, null, null, null, null);
+      email = waitForControllerApi.waitForLatestEmail(inbox.getId(), TIMEOUT_MILLIS.longValue(), UNREAD_ONLY, null, null, null, null);
       
       //assertTrue(email.getSubject().contains("Please confirm your email address"));
       
