@@ -41,7 +41,7 @@ public class Timetrial extends NewTest
 	  //During the below line of cod ewe are trying to connect mailslurp website to get a temprory email for signup process.
 	  mailslurpClient = com.mailslurp.clients.Configuration.getDefaultApiClient();
 	  mailslurpClient.setHttpClient(httpClient);
-      mailslurpClient.setApiKey("094f1948766abbac9d896db2425814cd28ef67f93c3c440e36b34923d866c9e2");
+      mailslurpClient.setApiKey("0978c19929af998ac07caa7967c02544862dac4745ffe29a33f975f873275333");
       mailslurpClient.setConnectTimeout(TIMEOUT_MILLIS.intValue());
       
       
