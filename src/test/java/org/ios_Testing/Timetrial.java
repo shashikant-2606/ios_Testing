@@ -23,7 +23,7 @@ import okhttp3.OkHttpClient;
 public class Timetrial extends NewTest 
 {
 	private static ApiClient mailslurpClient;
-	private static final Long TIMEOUT_MILLIS = 60000L;
+	private static final Long TIMEOUT_MILLIS = 300000L;
 	private static InboxDto inbox;
 	private static String confirmationCode;
 	private static final boolean unreadOnly= true;
@@ -38,14 +38,13 @@ public class Timetrial extends NewTest
               .readTimeout(TIMEOUT_MILLIS, TimeUnit.MILLISECONDS)
               .build();
 	  //During the below line of cod ewe are trying to connect mailslurp website to get a temprory email for signup process.
-	   mailslurpClient = Configuration.getDefaultApiClient();
-
-      
-      //Below line of code will be created a temprory Email address for signup process
-      
-      mailslurpClient.setHttpClient(httpClient);
+	  mailslurpClient = com.mailslurp.clients.Configuration.getDefaultApiClient();
+	  mailslurpClient.setBasePath("https://java.api.mailslurp.com");
+	  mailslurpClient.setHttpClient(httpClient);
       mailslurpClient.setApiKey("0978c19929af998ac07caa7967c02544862dac4745ffe29a33f975f873275333");
       mailslurpClient.setConnectTimeout(TIMEOUT_MILLIS.intValue());
+      
+      //Below line of code will be created a temprory Email address for signup process
       
       InboxControllerApi inboxControllerApi = new InboxControllerApi(mailslurpClient);
       inbox = inboxControllerApi.createInboxWithDefaults();
@@ -63,8 +62,8 @@ public class Timetrial extends NewTest
       driver.findElement(By.cssSelector("[data-test=sign-in-create-account-link]")).click();
       
       Thread.sleep(5000);
-      driver.findElement(By.name("email")).sendKeys(inbox.getEmailAddress());
-      driver.findElement(By.name("password")).sendKeys("Testing@12345");
+      driver.findElement(By.name("email")).sendKeys(emailAddress);
+      driver.findElement(By.name("password")).sendKeys(password1);
       driver.findElement(By.cssSelector("[data-test=sign-up-create-account-button]")).click();
       
       System.out.println("Completed till this process");
@@ -87,7 +86,7 @@ public class Timetrial extends NewTest
       //by using the below line of code we can extract a verification code from the inbox of temprory mail account.
 
       WaitForControllerApi waitForControllerApi = new WaitForControllerApi(mailslurpClient);
-      email1 = waitForControllerApi.waitForLatestEmail(inbox.getId(), TIMEOUT_MILLIS, unreadOnly, null, null, null,null);
+      email1 = waitForControllerApi.waitForLatestEmail(inbox.getId(), TIMEOUT_MILLIS.longValue(), unreadOnly, null, null, null,null);
       Pattern p = Pattern.compile(".*verification code is (\\d+).*");
       Matcher matcher = p.matcher(email1.getBody());
 
