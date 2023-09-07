@@ -38,20 +38,17 @@ public class Timetrial extends NewTest
               .readTimeout(TIMEOUT_MILLIS, TimeUnit.MILLISECONDS)
               .build();
 	  //During the below line of cod ewe are trying to connect mailslurp website to get a temprory email for signup process.
-	  mailslurpClient = com.mailslurp.clients.Configuration.getDefaultApiClient();
+	   mailslurpClient = Configuration.getDefaultApiClient();
 
       
       //Below line of code will be created a temprory Email address for signup process
       
-      mailslurpClient.setConnectTimeout(TIMEOUT_MILLIS.intValue());
-      mailslurpClient.setWriteTimeout(TIMEOUT_MILLIS.intValue());
-      mailslurpClient.setReadTimeout(TIMEOUT_MILLIS.intValue());
-      
       mailslurpClient.setHttpClient(httpClient);
       mailslurpClient.setApiKey("0978c19929af998ac07caa7967c02544862dac4745ffe29a33f975f873275333");
+      mailslurpClient.setConnectTimeout(TIMEOUT_MILLIS.intValue());
       
       InboxControllerApi inboxControllerApi = new InboxControllerApi(mailslurpClient);
-      inbox = inboxControllerApi.createInbox(null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+      inbox = inboxControllerApi.createInboxWithDefaults();
       String emailAddress = inbox.getEmailAddress();
       System.out.println(emailAddress);
       System.out.println(inbox.getId());
@@ -66,8 +63,8 @@ public class Timetrial extends NewTest
       driver.findElement(By.cssSelector("[data-test=sign-in-create-account-link]")).click();
       
       Thread.sleep(5000);
-      driver.findElement(By.name("email")).sendKeys(emailAddress);
-      driver.findElement(By.name("password")).sendKeys(password1);
+      driver.findElement(By.name("email")).sendKeys(inbox.getEmailAddress());
+      driver.findElement(By.name("password")).sendKeys("Testing@12345");
       driver.findElement(By.cssSelector("[data-test=sign-up-create-account-button]")).click();
       
       System.out.println("Completed till this process");
