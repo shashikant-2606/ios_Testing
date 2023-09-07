@@ -23,13 +23,13 @@ import okhttp3.OkHttpClient;
 public class Timetrial extends NewTest 
 {
 	private static ApiClient mailslurpClient;
-	private static final Long TIMEOUT_MILLIS = 120000L;
+	private static final Long TIMEOUT_MILLIS = 300000L;
 	private static InboxDto inbox;
 	private static String confirmationCode;
 	private static final boolean UNREAD_ONLY = true;
 	Email email1;
 
-  @Test
+  @Test(timeOut=300000)
   public void f() throws InterruptedException, ApiException 
   {
 	  OkHttpClient httpClient = new OkHttpClient.Builder()
