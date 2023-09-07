@@ -23,7 +23,7 @@ import okhttp3.OkHttpClient;
 public class Timetrial extends NewTest 
 {
 	private static ApiClient mailslurpClient;
-	private static final Long TIMEOUT_MILLIS = 30000L;
+	private static final Long TIMEOUT_MILLIS = 120000L;
 	private static InboxDto inbox;
 	private static String confirmationCode;
 	private static final boolean UNREAD_ONLY = true;
