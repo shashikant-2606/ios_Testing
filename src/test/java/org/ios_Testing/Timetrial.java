@@ -51,7 +51,7 @@ public class Timetrial extends NewTest
       mailslurpClient.setApiKey("0978c19929af998ac07caa7967c02544862dac4745ffe29a33f975f873275333");
       
       InboxControllerApi inboxControllerApi = new InboxControllerApi(mailslurpClient);
-      inbox = inboxControllerApi.createInboxWithDefaults();
+      inbox = inboxControllerApi.createInbox(null, null, null, null, null, null, null, null, null, null, null, null, null, null);
       String emailAddress = inbox.getEmailAddress();
       System.out.println(emailAddress);
       System.out.println(inbox.getId());
