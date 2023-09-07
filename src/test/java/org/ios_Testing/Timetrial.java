@@ -33,9 +33,9 @@ public class Timetrial extends NewTest
   public void f() throws InterruptedException, ApiException 
   {
 	  OkHttpClient httpClient = new OkHttpClient.Builder()
-              .connectTimeout(5, TimeUnit.MINUTES)
-              .writeTimeout(5, TimeUnit.MINUTES)
-              .readTimeout(5, TimeUnit.MINUTES)
+              .connectTimeout(TIMEOUT_MILLIS, TimeUnit.MILLISECONDS)
+              .writeTimeout(TIMEOUT_MILLIS, TimeUnit.MILLISECONDS)
+              .readTimeout(TIMEOUT_MILLIS, TimeUnit.MILLISECONDS)
               .build();
 	  //During the below line of cod ewe are trying to connect mailslurp website to get a temprory email for signup process.
 	  mailslurpClient = com.mailslurp.clients.Configuration.getDefaultApiClient();
