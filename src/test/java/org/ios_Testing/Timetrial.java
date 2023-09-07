@@ -46,9 +46,9 @@ public class Timetrial extends NewTest
       
       //Below line of code will be created a temprory Email address for signup process
       
-      mailslurpClient.setConnectTimeout(60000);
-      mailslurpClient.setWriteTimeout(60000);
-      mailslurpClient.setReadTimeout(60000);
+      mailslurpClient.setConnectTimeout(TIMEOUT_MILLIS.intValue());
+      mailslurpClient.setWriteTimeout(TIMEOUT_MILLIS.intValue());
+      mailslurpClient.setReadTimeout(TIMEOUT_MILLIS.intValue());
       
       InboxControllerApi inboxControllerApi = new InboxControllerApi(mailslurpClient);
       inbox = inboxControllerApi.createInboxWithDefaults();
@@ -98,7 +98,6 @@ public class Timetrial extends NewTest
     	    e.printStackTrace();
     	    System.out.println("Error message: " + e.getMessage());
     	    System.out.println("HTTP status code: " + e.getCode());
-    	    System.out.println("Response body: " + e.getResponseBody());
     	    // Handle the exception
     	}
     	
