@@ -27,7 +27,7 @@ public class Timetrial extends NewTest
 	private static InboxDto inbox;
 	private static String confirmationCode;
 	private static final boolean UNREAD_ONLY = true;
-	Email email1;
+	private static Email email1;
 
   @Test
   public void f() throws InterruptedException, ApiException 
@@ -88,18 +88,9 @@ public class Timetrial extends NewTest
       p1.Contact_info();*/
       
       //by using the below line of code we can extract a verification code from the inbox of temprory mail account.
-     try
-     {
+
       WaitForControllerApi waitForControllerApi = new WaitForControllerApi(mailslurpClient);
       email1 = waitForControllerApi.waitForLatestEmail(inbox.getId(), TIMEOUT_MILLIS.longValue(), UNREAD_ONLY, null, null, null,null);
-     }
-     
-     catch (ApiException e) {
-    	    e.printStackTrace();
-    	    System.out.println("Error message: " + e.getMessage());
-    	    System.out.println("HTTP status code: " + e.getCode());
-    	    // Handle the exception
-    	}
     	
       Pattern p = Pattern.compile(".*verification code is (\\d+).*");
       Matcher matcher = p.matcher(email1.getBody());
