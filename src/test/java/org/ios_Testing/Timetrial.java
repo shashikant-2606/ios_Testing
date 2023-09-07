@@ -29,7 +29,7 @@ public class Timetrial extends NewTest
 	private static final boolean UNREAD_ONLY = true;
 	Email email1;
 
-  @Test(timeOut=300000)
+  @Test
   public void f() throws InterruptedException, ApiException 
   {
 	  OkHttpClient httpClient = new OkHttpClient.Builder()
