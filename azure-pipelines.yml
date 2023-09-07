@@ -2,7 +2,7 @@ trigger:
   - main
 
 pool:
-  vmImage: 'macOS-11'
+  vmImage: 'macOS-latest'
 
 stages:
   - stage: iOS_testing
