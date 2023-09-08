@@ -58,13 +58,14 @@ public class Timetrial extends NewTest
       
       WaitForControllerApi waitForControllerApi = new WaitForControllerApi(mailslurpClient);
       
+      
+      email = waitForControllerApi.waitForLatestEmail(inbox.getId(), TIMEOUT_MILLIS, UNREAD_ONLY);
+      
       OkHttpClient innerClient = new OkHttpClient.Builder()
               .connectTimeout(2, TimeUnit.MINUTES) // connect timeout
               .writeTimeout(2, TimeUnit.MINUTES) // write timeout
               .readTimeout(2, TimeUnit.MINUTES) // read timeout
               .build();
-      email = waitForControllerApi.waitForLatestEmail(inbox.getId(), TIMEOUT_MILLIS, UNREAD_ONLY);
-      
       //assertTrue(email.getSubject().contains("Please confirm your email address"));
       
       Pattern p = Pattern.compile(".*verification code is (\\d+).*");
