@@ -57,6 +57,12 @@ public class Timetrial extends NewTest
       driver.findElement(By.cssSelector("[data-test=sign-up-create-account-button]")).click();
       
       WaitForControllerApi waitForControllerApi = new WaitForControllerApi(mailslurpClient);
+      
+      OkHttpClient innerClient = new OkHttpClient.Builder()
+              .connectTimeout(5, TimeUnit.MINUTES) // connect timeout
+              .writeTimeout(5, TimeUnit.MINUTES) // write timeout
+              .readTimeout(5, TimeUnit.MINUTES) // read timeout
+              .build();
       email = waitForControllerApi.waitForLatestEmail(inbox.getId(), TIMEOUT_MILLIS, UNREAD_ONLY);
       
       //assertTrue(email.getSubject().contains("Please confirm your email address"));
