@@ -16,7 +16,7 @@ import com.mailslurp.clients.ApiClient;
 import com.mailslurp.clients.ApiException;
 import com.mailslurp.clients.Configuration;
 import com.mailslurp.models.Email;
-import com.mailslurp.models.InboxDto;
+import com.mailslurp.models.Inbox;
 
 import okhttp3.OkHttpClient;
 
@@ -24,7 +24,7 @@ public class Timetrial extends NewTest
 {
 	private static ApiClient mailslurpClient;
 	private static final Long TIMEOUT_MILLIS = 60000L;
-	private static InboxDto inbox;
+	private static Inbox inbox;
 	private static Email email;
 	private static String confirmationCode;
 	private static final boolean UNREAD_ONLY = true;
@@ -40,7 +40,7 @@ public class Timetrial extends NewTest
       
       //Below line of code will be created a temprory Email address for signup process
       InboxControllerApi inboxControllerApi = new InboxControllerApi(mailslurpClient);
-      InboxDto inbox = inboxControllerApi.createInboxWithDefaults();
+      Inbox inbox = inboxControllerApi.createInboxWithDefaults();
       String emailAddress = inbox.getEmailAddress();
       System.out.println(emailAddress);
       
@@ -57,7 +57,7 @@ public class Timetrial extends NewTest
       driver.findElement(By.cssSelector("[data-test=sign-up-create-account-button]")).click();
       
       WaitForControllerApi waitForControllerApi = new WaitForControllerApi(mailslurpClient);
-      email = waitForControllerApi.waitForLatestEmail(inbox.getId(), TIMEOUT_MILLIS, UNREAD_ONLY, null, null, null, null);
+      email = waitForControllerApi.waitForLatestEmail(inbox.getId(), TIMEOUT_MILLIS, UNREAD_ONLY);
       
       //assertTrue(email.getSubject().contains("Please confirm your email address"));
       

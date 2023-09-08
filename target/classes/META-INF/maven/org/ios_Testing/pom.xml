@@ -59,7 +59,7 @@
 <dependency>
     <groupId>com.mailslurp</groupId>
     <artifactId>mailslurp-client-java</artifactId>
-    <version>15.17.4</version>
+    <version>11.11.1</version>
 </dependency>
   </dependencies>
 
